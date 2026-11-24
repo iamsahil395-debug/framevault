@@ -342,7 +342,23 @@ el("saveBtn").textContent="Save title";
 el("movieForm").onsubmit=async e=>{
 e.preventDefault();
 if(!admin)return;
-let item={
+let videoValue = httpsUrl(el("video").value) || null;
+const videoFile = el("videoFile").files[0];
+
+if (videoFile) {
+  const filePath = `${Date.now()}-${videoFile.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
+  const { data, error } = await client.storage
+    .from("framevault-media")
+    .upload(filePath, videoFile);
+
+  if (error) {
+    msg("Video upload failed: " + error.message);
+    return;
+  }
+
+  videoValue = filePath;
+}
+  let item={
 title:el("title").value.trim(),
 category:el("category").value,
 release_year:el("year").value?Number(el("year").value):null,
