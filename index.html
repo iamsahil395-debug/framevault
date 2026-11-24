@@ -247,7 +247,13 @@ if (error) alert("Storage URL error: " + error.message);
            </video>`
         : `<p>No video available yet.</p>`}
       <p>${esc(m.description || "No description.")}</p>
-      <p>${esc(m.category || "")}</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#aaa">
+  ${m.year ? `<span>Year: ${esc(m.year)}</span>` : ""}
+  ${m.language ? `<span>Language: ${esc(m.language)}</span>` : ""}
+  ${m.quality ? `<span>Quality: ${esc(m.quality)}</span>` : ""}
+  <span>${esc(m.category || "")}</span>
+</div>
+      
     </div>
   `;
 
