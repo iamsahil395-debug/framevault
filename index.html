@@ -350,7 +350,6 @@ el("saveBtn").textContent="Save title";
 el("movieForm").onsubmit=async e=>{
 e.preventDefault();
 if(!admin)return;
-alert("Save button is working");
   let videoValue = httpsUrl(el("video").value) || null;
 const videoFile = el("videoFile").files[0];
 
