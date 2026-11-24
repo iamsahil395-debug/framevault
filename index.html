@@ -500,17 +500,20 @@ document.getElementById("queueBtn")?.addEventListener("click", async () => {
 
   try {
     for (const url of urls) {
-      const { error } = await client.functions.invoke("framevault-ingest", {
-        body: {
-          source_type: "direct_url",
-          source_url: url,
-          source_name: "",
-          destination_provider: "",
-          destination_key: "",
-          tmdb_id: null,
-          media_type: "movie"
-        }
-      });
+      
+const { error } = await client.functions.invoke("framevault-ingest", {
+  body: {
+    source_type: "direct_url",
+    source_url: url,
+    source_name: decodeURIComponent(new URL(url).pathname.split("/").pop() || "video"),
+    destination_provider: "pending-setup",
+    destination_key: "",
+    tmdb_id: null,
+    media_type: "movie",
+    metadata: {}
+  }
+});
+  
 
       if (error) {
         failed++;
