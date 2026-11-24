@@ -209,7 +209,7 @@ ${httpsUrl(m.poster_url)?`<img src="${esc(httpsUrl(m.poster_url))}" alt="">`:"ðŸ
 </article>`).join(""):'<p class="muted">No published titles found.</p>';
 }
 
-window.details = id => {
+window.details = async id => {
   const m = movies.find(x => x.id === id);
   if (!m) return;
 
@@ -223,7 +223,15 @@ window.details = id => {
     justify-content:center;padding:18px;
   `;
 
-  const videoUrl = httpsUrl(m.video_url);
+  let videoUrl = m.video_url || "";
+
+if (videoUrl && !httpsUrl(videoUrl)) {
+  const { data, error } = await client.storage
+    .from("framevault-media")
+    .createSignedUrl(videoUrl, 3600);
+
+  videoUrl = error ? "" : data.signedUrl;
+}
 
   modal.innerHTML = `
     <div style="background:#1b2432;color:white;
