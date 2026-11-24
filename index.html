@@ -317,7 +317,10 @@ el("video").value=m.video_url||"";
 el("status").value=m.status;
 el("formTitle").textContent="Edit title";
 el("saveBtn").textContent="Update title";
+el("movieForm").scrollIntoView({behavior:"smooth",block:"center"});
+el("title").focus();
 };
+
 
 window.deleteMovie=async id=>{
 if(!confirm("Delete this catalogue entry?"))return;
