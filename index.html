@@ -359,19 +359,74 @@ e.preventDefault();
   let videoValue = httpsUrl(el("video").value) || null;
 const videoFile = el("videoFile").files[0];
 
+
 if (videoFile) {
   const filePath = `${Date.now()}-${videoFile.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
-  const { data, error } = await client.storage
-    .from("framevault-media")
-    .upload(filePath, videoFile);
 
-  if (error) {
-    alert("Video upload failed: " + error.message);
+  const progressBox = document.createElement("div");
+  progressBox.id = "uploadProgress";
+  progressBox.style.cssText = "margin:12px 0;padding:14px;background:#293244;border-radius:10px;color:white;";
+  progressBox.innerHTML = `
+    <div id="uploadStatus">Preparing upload...</div>
+    <div style="background:#555;height:10px;border-radius:10px;margin:12px 0;overflow:hidden">
+      <div id="uploadBar" style="height:100%;width:0%;background:#ffbd59"></div>
+    </div>
+    <div id="uploadInfo">0%</div>
+  `;
+
+  el("videoFile").after(progressBox);
+
+  const { data: sessionData } = await client.auth.getSession();
+  const token = sessionData.session?.access_token;
+
+  if (!token) {
+    alert("Admin session expired. Please sign in again.");
     return;
   }
 
+  const xhr = new XMLHttpRequest();
+  const endpoint = `${SUPABASE_URL}/storage/v1/object/framevault-media/${encodeURIComponent(filePath)}`;
+
+  await new Promise((resolve, reject) => {
+    const startTime = Date.now();
+
+    xhr.upload.addEventListener("progress", event => {
+      if (!event.lengthComputable) return;
+
+      const percent = Math.round(event.loaded / event.total * 100);
+      const seconds = (Date.now() - startTime) / 1000;
+      const speed = seconds > 0 ? event.loaded / seconds : 0;
+      const remaining = speed > 0 ? (event.total - event.loaded) / speed : 0;
+
+      el("uploadBar").style.width = percent + "%";
+      el("uploadStatus").textContent = "Uploading video...";
+      el("uploadInfo").textContent =
+        `${percent}% | ${(event.loaded / 1048576).toFixed(1)} / ${(event.total / 1048576).toFixed(1)} MB | ${(speed / 1048576).toFixed(2)} MB/s | ${Math.ceil(remaining)} sec remaining`;
+    });
+
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) resolve();
+      else reject(new Error(xhr.responseText || "Upload failed"));
+    };
+
+    xhr.onerror = () => reject(new Error("Network error"));
+    xhr.onabort = () => reject(new Error("Upload cancelled"));
+
+    xhr.open("POST", endpoint);
+    xhr.setRequestHeader("apikey", SUPABASE_PUBLISHABLE_KEY);
+    xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+    xhr.setRequestHeader("Content-Type", videoFile.type || "application/octet-stream");
+    xhr.setRequestHeader("x-upsert", "false");
+    xhr.send(videoFile);
+  });
+
+  el("uploadStatus").textContent = "Upload completed!";
+  el("uploadBar").style.width = "100%";
+  el("uploadInfo").textContent = "100% | Upload successful";
+
   videoValue = filePath;
 }
+  
   let item={
 title:el("title").value.trim(),
 category:el("category").value,
