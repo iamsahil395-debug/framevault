@@ -366,7 +366,7 @@ language:el("language").value.trim()||null,
 quality:el("quality").value,
 poster_url:httpsUrl(el("poster").value)||null,
 description:el("description").value.trim()||null,
-video_url:httpsUrl(el("video").value)||null,
+video_url:videoValue,
 status:el("status").value,
 updated_at:new Date().toISOString()
 };
