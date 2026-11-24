@@ -455,6 +455,82 @@ button.textContent="Import CSV";
 }
 };
 
+// FrameVault Bulk URL Queue
+const bulkQueueHTML = `
+<section class="panel" id="bulkQueue">
+  <h3>Bulk URL Queue</h3>
+  <p class="muted">Add one authorised video URL per line.</p>
+  <textarea id="bulkUrls" placeholder="https://your-authorised-video-url.com/video1.mp4
+https://your-authorised-video-url.com/video2.mp4"></textarea>
+  <button type="button" id="queueBtn">Add URLs to Queue</button>
+  <div class="status" id="queueStatus">Ready.</div>
+</section>`;
+
+const adminPanel = document.getElementById("adminArea");
+if (adminPanel && !document.getElementById("bulkQueue")) {
+  adminPanel.insertAdjacentHTML("beforeend", bulkQueueHTML);
+}
+
+document.getElementById("queueBtn")?.addEventListener("click", async () => {
+  const status = document.getElementById("queueStatus");
+  const button = document.getElementById("queueBtn");
+  const urls = document.getElementById("bulkUrls").value
+    .split(/\r?\n/)
+    .map(x => x.trim())
+    .filter(Boolean);
+
+  if (!admin || !client) {
+    status.textContent = "Admin login required.";
+    return;
+  }
+
+  if (!urls.length) {
+    status.textContent = "Please enter at least one URL.";
+    return;
+  }
+
+  if (urls.some(url => !httpsUrl(url))) {
+    status.textContent = "Every URL must use HTTPS. Check your list.";
+    return;
+  }
+
+  button.disabled = true;
+  let added = 0;
+  let failed = 0;
+
+  try {
+    for (const url of urls) {
+      const { error } = await client.functions.invoke("framevault-ingest", {
+        body: {
+          source_type: "direct_url",
+          source_url: url,
+          source_name: "",
+          destination_provider: "",
+          destination_key: "",
+          tmdb_id: null,
+          media_type: "movie"
+        }
+      });
+
+      if (error) {
+        failed++;
+      } else {
+        added++;
+      }
+
+      status.textContent =
+        `Processed ${added + failed}/${urls.length} · Added ${added} · Failed ${failed}`;
+    }
+
+    status.textContent =
+      `Finished. Added: ${added}, Failed: ${failed}.`;
+  } catch (error) {
+    status.textContent = "Queue error: " + error.message;
+  } finally {
+    button.disabled = false;
+  }
+});
+  
 start();
 </script>
 </body>
