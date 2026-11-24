@@ -1,59 +1,461 @@
+
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10131c"><title>FrameVault</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10131c">
+<title>FrameVault</title>
 <style>
-:root{--bg:#10131c;--panel:#1b2230;--gold:#ffbd59;--muted:#a7afbf}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f8fb;font-family:system-ui,Arial}header{position:sticky;top:0;background:#10131cf2;border-bottom:1px solid #ffffff22;padding:15px 5%;z-index:2}.logo{font-weight:900;font-size:22px}.logo span{color:var(--gold)}main{max-width:1050px;margin:auto;padding:22px 16px}.hero,.panel{padding:24px;border-radius:16px;background:linear-gradient(110deg,#172033,#3b5867,#96694a);margin-bottom:25px}.hero h1{font-size:clamp(30px,6vw,48px);margin:8px 0}.muted{color:var(--muted);font-size:13px;line-height:1.5}button{border:0;border-radius:9px;padding:10px 14px;background:var(--gold);color:#171b25;font-weight:750;cursor:pointer}button.secondary{background:#ffffff18;color:white;border:1px solid #ffffff30}button.danger{background:#71303a;color:white}input,select,textarea{width:100%;padding:11px;margin:5px 0;background:#111724;color:white;border:1px solid #ffffff30;border-radius:9px;font:inherit}textarea{min-height:70px}.toolbar{display:flex;gap:8px;margin:12px 0}.toolbar input{flex:1}.chips{display:flex;gap:8px;overflow:auto;margin:12px 0}.chip{white-space:nowrap;background:#ffffff16;color:white}.chip.active{background:var(--gold);color:#171b25}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:var(--panel);border:1px solid #ffffff18;border-radius:12px;overflow:hidden}.poster{height:180px;display:grid;place-items:center;background:linear-gradient(140deg,#23515b,#a66e4c);font-size:54px}.poster img{width:100%;height:100%;object-fit:cover}.body{padding:11px}.body h3{font-size:15px;margin:0 0 6px}.body button{width:100%;margin-top:9px}.meta{font-size:11px;color:var(--muted)}.panel{background:var(--panel);border:1px solid #ffffff22}.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.wide{grid-column:1/-1}.hidden{display:none!important}.status{padding:10px;background:#ffffff12;border-radius:9px;font-size:13px;margin:10px 0}.item{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #ffffff22;font-size:13px}.item small{display:block;color:var(--muted)}footer{text-align:center;color:var(--muted);padding:25px;font-size:12px}@media(max-width:650px){.grid{grid-template-columns:repeat(2,1fr)}.poster{height:155px}.formgrid{grid-template-columns:1fr}.wide{grid-column:auto}.toolbar{flex-wrap:wrap}}
-</style></head><body>
+:root{--bg:#10131c;--panel:#1b2230;--gold:#ffbd59;--muted:#a7afbf}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#f7f8fb;font-family:system-ui,Arial}
+header{position:sticky;top:0;background:#10131cf2;border-bottom:1px solid #ffffff22;padding:15px 5%;z-index:2}
+.logo{font-weight:900;font-size:22px}
+.logo span{color:var(--gold)}
+main{max-width:1050px;margin:auto;padding:22px 16px}
+.hero,.panel{padding:24px;border-radius:16px;background:linear-gradient(110deg,#172033,#3b5867,#96694a);margin-bottom:25px}
+.hero h1{font-size:clamp(30px,6vw,48px);margin:8px 0}
+.muted{color:var(--muted);font-size:13px;line-height:1.5}
+button{border:0;border-radius:9px;padding:10px 14px;background:var(--gold);color:#171b25;font-weight:750;cursor:pointer}
+button.secondary{background:#ffffff18;color:white;border:1px solid #ffffff30}
+button.danger{background:#71303a;color:white}
+input,select,textarea{width:100%;padding:11px;margin:5px 0;background:#111724;color:white;border:1px solid #ffffff30;border-radius:9px;font:inherit}
+textarea{min-height:70px}
+.toolbar{display:flex;gap:8px;margin:12px 0}
+.toolbar input{flex:1}
+.chips{display:flex;gap:8px;overflow:auto;margin:12px 0}
+.chip{white-space:nowrap;background:#ffffff16;color:white}
+.chip.active{background:var(--gold);color:#171b25}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{background:var(--panel);border:1px solid #ffffff18;border-radius:12px;overflow:hidden}
+.poster{height:180px;display:grid;place-items:center;background:linear-gradient(140deg,#23515b,#a66e4c);font-size:54px}
+.poster img{width:100%;height:100%;object-fit:cover}
+.body{padding:11px}
+.body h3{font-size:15px;margin:0 0 6px}
+.body button{width:100%;margin-top:9px}
+.meta{font-size:11px;color:var(--muted)}
+.panel{background:var(--panel);border:1px solid #ffffff22}
+.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.wide{grid-column:1/-1}
+.hidden{display:none!important}
+.status{padding:10px;background:#ffffff12;border-radius:9px;font-size:13px;margin:10px 0;overflow-wrap:anywhere}
+.item{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #ffffff22;font-size:13px}
+.item small{display:block;color:var(--muted)}
+footer{text-align:center;color:var(--muted);padding:25px;font-size:12px}
+@media(max-width:650px){
+.grid{grid-template-columns:repeat(2,1fr)}
+.poster{height:155px}
+.formgrid{grid-template-columns:1fr}
+.wide{grid-column:auto}
+.toolbar{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
 <header><div class="logo">FRAME<span>VAULT</span></div></header>
+
 <main>
-<section class="hero"><small>MOVIES • SERIES • ANIMATION</small><h1>Stories worth watching.</h1><p class="muted">Movies, web series, anime and animation in one catalogue.</p><button onclick="document.querySelector('#catalog').scrollIntoView({behavior:'smooth'})">Explore collection</button></section>
-<section id="catalog"><h2>Latest titles</h2><div class="toolbar"><input id="search" placeholder="Search titles"><button class="secondary" onclick="loadMovies()">Refresh</button></div>
-<div class="chips" id="filters"><button class="chip active" data-cat="All">All</button><button class="chip" data-cat="Movies">Movies</button><button class="chip" data-cat="Hollywood">Hollywood</button><button class="chip" data-cat="Bollywood">Bollywood</button><button class="chip" data-cat="Web Series">Web Series</button><button class="chip" data-cat="Anime">Anime</button><button class="chip" data-cat="Animation">Animation</button><button class="chip" data-cat="Cartoons">Cartoons</button></div><div class="grid" id="grid"><p class="muted">Configure Supabase to load the catalogue.</p></div></section>
-<section class="panel" id="admin"><h2>Admin login</h2><p class="muted">Only authorised accounts in the admin_users table can manage titles.</p>
-<div id="login"><input id="email" type="email" placeholder="Admin email"><input id="password" type="password" placeholder="Password"><button id="loginBtn">Sign in</button></div>
-<div id="adminArea" class="hidden"><div class="status" id="adminStatus"></div><h3 id="formTitle">Add a title</h3><form id="movieForm" class="formgrid">
-<input id="title" class="wide" placeholder="Movie / series title" required><select id="category"><option>Movies</option><option>Hollywood</option><option>Bollywood</option><option>Web Series</option><option>Anime</option><option>Animation</option><option>Cartoons</option></select><input id="year" type="number" placeholder="Release year"><input id="language" placeholder="Language"><select id="quality"><option>1080p</option><option>720p</option><option>480p</option><option>4K</option></select><input id="poster" class="wide" type="url" placeholder="Poster image URL (optional)"><textarea id="description" class="wide" placeholder="Description"></textarea><input id="video" class="wide" type="url" placeholder="Authorised video URL (optional)"><select id="status"><option value="draft">Draft</option><option value="published">Published</option></select><div class="wide"><button id="saveBtn">Save title</button> <button type="button" class="secondary" id="clearBtn">Clear</button> <button type="button" class="danger" id="logoutBtn">Sign out</button></div></form><h3>Manage titles</h3><div id="manage"></div></div>
-<div id="message" class="status">Supabase configuration is required.</div><p class="muted">Use only films you own, have licensed, or are legally allowed to distribute. Never put a secret/service-role key in this file.</p></section>
-</main><footer>FrameVault · Movies & Animation</footer>
+<section class="hero">
+<small>MOVIES • SERIES • ANIMATION</small>
+<h1>Stories worth watching.</h1>
+<p class="muted">Movies, web series, anime and animation in one catalogue.</p>
+<button onclick="document.querySelector('#catalog').scrollIntoView({behavior:'smooth'})">Explore collection</button>
+</section>
+
+<section id="catalog">
+<h2>Latest titles</h2>
+<div class="toolbar">
+<input id="search" placeholder="Search titles">
+<button class="secondary" onclick="loadMovies()">Refresh</button>
+</div>
+<div class="chips" id="filters">
+<button class="chip active" data-cat="All">All</button>
+<button class="chip" data-cat="Movies">Movies</button>
+<button class="chip" data-cat="Hollywood">Hollywood</button>
+<button class="chip" data-cat="Bollywood">Bollywood</button>
+<button class="chip" data-cat="Web Series">Web Series</button>
+<button class="chip" data-cat="Anime">Anime</button>
+<button class="chip" data-cat="Animation">Animation</button>
+<button class="chip" data-cat="Cartoons">Cartoons</button>
+</div>
+<div class="grid" id="grid">
+<p class="muted">Configure Supabase to load the catalogue.</p>
+</div>
+</section>
+
+<section class="panel" id="admin">
+<h2>Admin login</h2>
+<p class="muted">Only authorised accounts in the admin_users table can manage titles.</p>
+
+<div id="login">
+<input id="email" type="email" placeholder="Admin email">
+<input id="password" type="password" placeholder="Password">
+<button id="loginBtn">Sign in</button>
+</div>
+
+<div id="adminArea" class="hidden">
+<div class="status" id="adminStatus"></div>
+<h3 id="formTitle">Add a title</h3>
+
+<form id="movieForm" class="formgrid">
+<input id="title" class="wide" placeholder="Movie / series title" required>
+<select id="category">
+<option>Movies</option><option>Hollywood</option><option>Bollywood</option>
+<option>Web Series</option><option>Anime</option><option>Animation</option><option>Cartoons</option>
+</select>
+<input id="year" type="number" placeholder="Release year">
+<input id="language" placeholder="Language">
+<select id="quality">
+<option>1080p</option><option>720p</option><option>480p</option><option>4K</option>
+</select>
+<input id="poster" class="wide" type="url" placeholder="Poster image URL (optional)">
+<textarea id="description" class="wide" placeholder="Description"></textarea>
+<input id="video" class="wide" type="url" placeholder="Authorised video URL (optional)">
+<select id="status">
+<option value="draft">Draft</option><option value="published">Published</option>
+</select>
+<div class="wide">
+<button id="saveBtn">Save title</button>
+<button type="button" class="secondary" id="clearBtn">Clear</button>
+<button type="button" class="danger" id="logoutBtn">Sign out</button>
+</div>
+</form>
+
+<h3>Bulk Import</h3>
+<p class="muted">Import multiple authorised titles using a CSV file. Each row represents one title.</p>
+<div class="formgrid">
+<input id="csvFile" class="wide" type="file" accept=".csv,text/csv">
+<p class="muted wide">Required CSV header: title. Other supported columns: category, release_year, language, quality, poster_url, description, video_url, status.</p>
+<button type="button" id="importBtn" class="wide">Import CSV</button>
+<div id="importStatus" class="status wide">No file selected.</div>
+</div>
+
+<h3>Manage titles</h3>
+<div id="manage"></div>
+</div>
+
+<div id="message" class="status">Supabase configuration is required.</div>
+<p class="muted">Use only films you own, have licensed, or are legally allowed to distribute. Never put a secret/service-role key in this file.</p>
+</section>
+</main>
+
+<footer>FrameVault · Movies & Animation</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// Replace these two placeholders. Use Project URL and sb_publishable_ key only.
+// Public client configuration
 const SUPABASE_URL="https://wucnhiatubglxukndsfy.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY="sb_publishable_Hfs9Hfnzryn1z-UrjPEkFQ_E5PWLfh7";
-let client=null, movies=[], categoryFilter="All", editId=null, admin=false;
-const el=id=>document.getElementById(id), msg=s=>el("message").textContent=s;
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const httpsUrl=s=>{try{let u=new URL(s);return u.protocol==="https:"?u.href:""}catch{return ""}};
+
+let client=null,movies=[],categoryFilter="All",editId=null,admin=false;
+
+const el=id=>document.getElementById(id);
+const msg=s=>el("message").textContent=s;
+
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
+
+const httpsUrl=s=>{
+try{
+let u=new URL(s);
+return u.protocol==="https:"?u.href:"";
+}catch{return ""}
+};
+
 async function start(){
- if(!window.supabase){msg("Supabase library did not load. Check internet.");return}
- if(!SUPABASE_URL.startsWith("https://")||!SUPABASE_PUBLISHABLE_KEY.startsWith("sb_publishable_")){msg("Setup needed: replace the two Supabase placeholders in this HTML file.");return}
- client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
- let {data:{session}}=await client.auth.getSession();if(session)await verifyAdmin();await loadMovies();
- client.auth.onAuthStateChange(()=>setTimeout(async()=>{await verifyAdmin();await loadMovies()},0));
+if(!window.supabase){msg("Supabase library did not load. Check internet.");return}
+if(!SUPABASE_URL.startsWith("https://")||!SUPABASE_PUBLISHABLE_KEY.startsWith("sb_publishable_")){
+msg("Supabase setup required.");return;
 }
+client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+let {data:{session}}=await client.auth.getSession();
+if(session)await verifyAdmin();
+await loadMovies();
+client.auth.onAuthStateChange(()=>setTimeout(async()=>{
+await verifyAdmin();
+await loadMovies();
+},0));
+}
+
 async function loadMovies(){
- if(!client)return;
- let {data,error}=await client.from("movies").select("id,title,category,release_year,quality,poster_url,description,status,created_at").eq("status","published").order("created_at",{ascending:false});
- if(error){msg("Catalogue error: "+error.message);return}movies=data||[];render();
+if(!client)return;
+let {data,error}=await client.from("movies")
+.select("id,title,category,release_year,quality,poster_url,description,status,created_at")
+.eq("status","published").order("created_at",{ascending:false});
+if(error){msg("Catalogue error: "+error.message);return}
+movies=data||[];
+render();
 }
+
 function render(){
- let q=el("search").value.toLowerCase().trim(), list=movies.filter(m=>(categoryFilter==="All"||m.category===categoryFilter)&&m.title.toLowerCase().includes(q));
- el("grid").innerHTML=list.length?list.map(m=>`<article class="card"><div class="poster">${httpsUrl(m.poster_url)?`<img src="${esc(httpsUrl(m.poster_url))}" alt="">`:"🎬"}</div><div class="body"><h3>${esc(m.title)}</h3><div class="meta">${esc(m.category)} · ${esc(m.release_year||"Year N/A")} · ${esc(m.quality||"")}</div><button onclick="details('${m.id}')">Details</button></div></article>`).join(""):'<p class="muted">No published titles found.</p>';
+let q=el("search").value.toLowerCase().trim();
+let list=movies.filter(m=>
+(categoryFilter==="All"||m.category===categoryFilter)&&
+m.title.toLowerCase().includes(q)
+);
+el("grid").innerHTML=list.length?list.map(m=>`
+<article class="card">
+<div class="poster">
+${httpsUrl(m.poster_url)?`<img src="${esc(httpsUrl(m.poster_url))}" alt="">`:"🎬"}
+</div>
+<div class="body">
+<h3>${esc(m.title)}</h3>
+<div class="meta">${esc(m.category)} · ${esc(m.release_year||"Year N/A")} · ${esc(m.quality||"")}</div>
+<button onclick="details('${m.id}')">Details</button>
+</div>
+</article>`).join(""):'<p class="muted">No published titles found.</p>';
 }
-window.details=id=>{let m=movies.find(x=>x.id===id);if(m)alert(m.title+"\\n"+(m.description||"No description."))};
+
+window.details=id=>{
+let m=movies.find(x=>x.id===id);
+if(m)alert(m.title+"\n"+(m.description||"No description."));
+};
+
 el("search").addEventListener("input",render);
-el("filters").addEventListener("click",e=>{let b=e.target.closest("[data-cat]");if(!b)return;categoryFilter=b.dataset.cat;document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",x===b));render()});
+
+el("filters").addEventListener("click",e=>{
+let b=e.target.closest("[data-cat]");
+if(!b)return;
+categoryFilter=b.dataset.cat;
+document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",x===b));
+render();
+});
+
 async function verifyAdmin(){
- let {data:{user}}=await client.auth.getUser();admin=false;
- if(user){let r=await client.from("admin_users").select("user_id").eq("user_id",user.id).maybeSingle();admin=!!r.data&&!r.error}
- el("login").classList.toggle("hidden",admin);el("adminArea").classList.toggle("hidden",!admin);
- if(admin){el("adminStatus").textContent="Authorised admin signed in.";await loadManage()}
+let {data:{user}}=await client.auth.getUser();
+admin=false;
+if(user){
+let r=await client.from("admin_users").select("user_id").eq("user_id",user.id).maybeSingle();
+admin=!!r.data&&!r.error;
 }
-el("loginBtn").onclick=async()=>{let r=await client.auth.signInWithPassword({email:el("email").value.trim(),password:el("password").value});if(r.error){msg("Login failed: "+r.error.message);return}await verifyAdmin();msg(admin?"Admin login successful.":"Account is not authorised in admin_users.")};
-el("logoutBtn").onclick=async()=>{await client.auth.signOut();admin=false;await verifyAdmin();msg("Signed out.")};
-async function loadManage(){let r=await client.from("movies").select("*").order("created_at",{ascending:false});if(r.error){el("manage").textContent=r.error.message;return}el("manage").innerHTML=(r.data||[]).map(m=>`<div class="item"><div><b>${esc(m.title)}</b><small>${esc(m.category)} · ${esc(m.status)}</small></div><div><button onclick="editMovie('${m.id}')">Edit</button> <button class="danger" onclick="deleteMovie('${m.id}')">Delete</button></div></div>`).join("")||'<p class="muted">No titles added.</p>'}
-window.editMovie=async id=>{let r=await client.from("movies").select("*").eq("id",id).single();if(r.error){msg(r.error.message);return}let m=r.data;editId=id;el("title").value=m.title;el("category").value=m.category;el("year").value=m.release_year||"";el("language").value=m.language||"";el("quality").value=m.quality||"1080p";el("poster").value=m.poster_url||"";el("description").value=m.description||"";el("video").value=m.video_url||"";el("status").value=m.status;el("formTitle").textContent="Edit title";el("saveBtn").textContent="Update title"};
-window.deleteMovie=async id=>{if(!confirm("Delete this catalogue entry?"))return;let r=await client.from("movies").delete().eq("id",id);if(r.error){msg(r.error.message);return}await loadManage();await loadMovies();msg("Entry deleted.")};
-el("clearBtn").onclick=()=>{editId=null;el("movieForm").reset();el("formTitle").textContent="Add a title";el("saveBtn").textContent="Save title"};
-el("movieForm").onsubmit=async e=>{e.preventDefault();if(!admin)return;let item={title:el("title").value.trim(),category:el("category").value,release_year:el("year").value?Number(el("year").value):null,language:el("language").value.trim()||null,quality:el("quality").value,poster_url:httpsUrl(el("poster").value)||null,description:el("description").value.trim()||null,video_url:httpsUrl(el("video").value)||null,status:el("status").value,updated_at:new Date().toISOString()};let r=editId?await client.from("movies").update(item).eq("id",editId):await client.from("movies").insert(item);if(r.error){msg("Save failed: "+r.error.message);return}el("movieForm").reset();editId=null;el("formTitle").textContent="Add a title";el("saveBtn").textContent="Save title";msg("Saved to online database.");await loadManage();await loadMovies()};
+el("login").classList.toggle("hidden",admin);
+el("adminArea").classList.toggle("hidden",!admin);
+if(admin){
+el("adminStatus").textContent="Authorised admin signed in.";
+await loadManage();
+}
+}
+
+el("loginBtn").onclick=async()=>{
+let r=await client.auth.signInWithPassword({
+email:el("email").value.trim(),
+password:el("password").value
+});
+if(r.error){msg("Login failed: "+r.error.message);return}
+await verifyAdmin();
+msg(admin?"Admin login successful.":"Account is not authorised in admin_users.");
+};
+
+el("logoutBtn").onclick=async()=>{
+await client.auth.signOut();
+admin=false;
+await verifyAdmin();
+msg("Signed out.");
+};
+
+async function loadManage(){
+let r=await client.from("movies").select("*").order("created_at",{ascending:false});
+if(r.error){el("manage").textContent=r.error.message;return}
+el("manage").innerHTML=(r.data||[]).map(m=>`
+<div class="item">
+<div><b>${esc(m.title)}</b><small>${esc(m.category)} · ${esc(m.status)}</small></div>
+<div>
+<button onclick="editMovie('${m.id}')">Edit</button>
+<button class="danger" onclick="deleteMovie('${m.id}')">Delete</button>
+</div>
+</div>`).join("")||'<p class="muted">No titles added.</p>';
+}
+
+window.editMovie=async id=>{
+let r=await client.from("movies").select("*").eq("id",id).single();
+if(r.error){msg(r.error.message);return}
+let m=r.data;
+editId=id;
+el("title").value=m.title;
+el("category").value=m.category;
+el("year").value=m.release_year||"";
+el("language").value=m.language||"";
+el("quality").value=m.quality||"1080p";
+el("poster").value=m.poster_url||"";
+el("description").value=m.description||"";
+el("video").value=m.video_url||"";
+el("status").value=m.status;
+el("formTitle").textContent="Edit title";
+el("saveBtn").textContent="Update title";
+};
+
+window.deleteMovie=async id=>{
+if(!confirm("Delete this catalogue entry?"))return;
+let r=await client.from("movies").delete().eq("id",id);
+if(r.error){msg(r.error.message);return}
+await loadManage();
+await loadMovies();
+msg("Entry deleted.");
+};
+
+el("clearBtn").onclick=()=>{
+editId=null;
+el("movieForm").reset();
+el("formTitle").textContent="Add a title";
+el("saveBtn").textContent="Save title";
+};
+
+el("movieForm").onsubmit=async e=>{
+e.preventDefault();
+if(!admin)return;
+let item={
+title:el("title").value.trim(),
+category:el("category").value,
+release_year:el("year").value?Number(el("year").value):null,
+language:el("language").value.trim()||null,
+quality:el("quality").value,
+poster_url:httpsUrl(el("poster").value)||null,
+description:el("description").value.trim()||null,
+video_url:httpsUrl(el("video").value)||null,
+status:el("status").value,
+updated_at:new Date().toISOString()
+};
+let r=editId
+?await client.from("movies").update(item).eq("id",editId)
+:await client.from("movies").insert(item);
+if(r.error){msg("Save failed: "+r.error.message);return}
+el("movieForm").reset();
+editId=null;
+el("formTitle").textContent="Add a title";
+el("saveBtn").textContent="Save title";
+msg("Saved to online database.");
+await loadManage();
+await loadMovies();
+};
+
+// CSV parser: supports quoted fields, commas and newlines inside quoted fields.
+function parseCSV(text){
+text=text.replace(/^\uFEFF/,"");
+let rows=[],row=[],cell="",quoted=false;
+for(let i=0;i<text.length;i++){
+let c=text[i],next=text[i+1];
+if(quoted){
+if(c==='"'&&next==='"'){cell+='"';i++}
+else if(c==='"'){quoted=false}
+else{cell+=c}
+}else{
+if(c==='"'&&cell===""){quoted=true}
+else if(c===","){row.push(cell);cell=""}
+else if(c==="\n"){
+row.push(cell);rows.push(row);row=[];cell="";
+}else if(c!=="\r"){cell+=c}
+}
+}
+if(quoted)throw new Error("CSV has an unclosed quotation mark.");
+if(cell.length||row.length){row.push(cell);rows.push(row)}
+return rows.filter(r=>r.some(v=>String(v).trim()!==""));
+}
+
+const allowedCategories=["Movies","Hollywood","Bollywood","Web Series","Anime","Animation","Cartoons"];
+const allowedQualities=["1080p","720p","480p","4K"];
+const allowedStatuses=["draft","published"];
+
+el("importBtn").onclick=async()=>{
+if(!admin||!client){el("importStatus").textContent="Please sign in as admin first.";return}
+
+let file=el("csvFile").files[0];
+if(!file){el("importStatus").textContent="Please select a CSV file.";return}
+if(file.size>2*1024*1024){el("importStatus").textContent="CSV file is too large. Maximum size is 2 MB.";return}
+
+let button=el("importBtn");
+button.disabled=true;
+button.textContent="Importing...";
+
+try{
+let text=await file.text();
+let rows=parseCSV(text);
+if(rows.length<2)throw new Error("CSV must contain a header and at least one data row.");
+
+let headers=rows[0].map(h=>h.trim().toLowerCase());
+if(!headers.includes("title"))throw new Error("Required CSV column 'title' is missing.");
+
+let supported=["title","category","release_year","language","quality","poster_url","description","video_url","status"];
+let unknown=headers.filter(h=>!supported.includes(h));
+if(unknown.length)throw new Error("Unsupported CSV column(s): "+unknown.join(", "));
+
+let records=[],issues=[];
+for(let i=1;i<rows.length;i++){
+let values={};
+headers.forEach((h,j)=>values[h]=(rows[i][j]??"").trim());
+
+let title=values.title;
+if(!title){issues.push("Row "+(i+1)+": title is empty.");continue}
+
+let category=values.category||"Movies";
+if(!allowedCategories.includes(category)){issues.push("Row "+(i+1)+": invalid category.");continue}
+
+let quality=values.quality||"1080p";
+if(!allowedQualities.includes(quality)){issues.push("Row "+(i+1)+": invalid quality.");continue}
+
+let status=values.status||"draft";
+if(!allowedStatuses.includes(status)){issues.push("Row "+(i+1)+": status must be draft or published.");continue}
+
+let year=null;
+if(values.release_year){
+year=Number(values.release_year);
+if(!Number.isInteger(year)||year<1888||year>2100){
+issues.push("Row "+(i+1)+": invalid release year.");continue;
+}
+}
+
+let poster=null,video=null;
+if(values.poster_url){
+poster=httpsUrl(values.poster_url);
+if(!poster){issues.push("Row "+(i+1)+": poster URL must use HTTPS.");continue}
+}
+if(values.video_url){
+video=httpsUrl(values.video_url);
+if(!video){issues.push("Row "+(i+1)+": video URL must use HTTPS.");continue}
+}
+
+records.push({
+title,
+category,
+release_year:year,
+language:values.language||null,
+quality,
+poster_url:poster,
+description:values.description||null,
+video_url:video,
+status,
+updated_at:new Date().toISOString()
+});
+}
+
+if(!records.length)throw new Error("No valid records found. "+issues.slice(0,5).join(" "));
+
+let imported=0;
+for(let i=0;i<records.length;i+=50){
+let batch=records.slice(i,i+50);
+let result=await client.from("movies").insert(batch);
+if(result.error)throw new Error("Database import stopped after "+imported+" records: "+result.error.message);
+imported+=batch.length;
+}
+
+el("importStatus").textContent=
+"Successfully imported "+imported+" title(s). Skipped "+issues.length+" invalid row(s). "+
+issues.slice(0,5).join(" ");
+
+el("csvFile").value="";
+await loadManage();
+await loadMovies();
+
+}catch(error){
+el("importStatus").textContent="Import failed: "+error.message;
+}finally{
+button.disabled=false;
+button.textContent="Import CSV";
+}
+};
+
 start();
-</script></body></html>
+</script>
+</body>
+</html>
