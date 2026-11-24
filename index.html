@@ -348,6 +348,21 @@ if (error) alert("Storage URL error: " + error.message);
   `;
 
   document.body.appendChild(modal);
+  const player = modal.querySelector("video");
+
+if (player) {
+  player.addEventListener("fullscreenchange", async () => {
+    if (document.fullscreenElement) {
+      try {
+        await screen.orientation.lock("landscape");
+      } catch (error) {
+        console.log("Landscape lock not supported");
+      }
+    } else {
+      screen.orientation.unlock();
+    }
+  });
+}
   modal.querySelector("#closeMovie").onclick = () => modal.remove();
 };
 
