@@ -204,7 +204,7 @@ ${httpsUrl(m.poster_url)?`<img src="${esc(httpsUrl(m.poster_url))}" alt="">`:"�
 <div class="body">
 <h3>${esc(m.title)}</h3>
 <div class="meta">${esc(m.category)} · ${esc(m.release_year||"Year N/A")} · ${esc(m.quality||"")}</div>
-onclick="window.details('${m.id}')"
+<button type="button" onclick="window.details('${m.id}')">Details</button>
 </div>
 </article>`).join(""):'<p class="muted">No published titles found.</p>';
 }
