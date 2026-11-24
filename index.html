@@ -183,7 +183,7 @@ await loadMovies();
 async function loadMovies(){
 if(!client)return;
 let {data,error}=await client.from("movies")
-.select("id,title,category,release_year,quality,poster_url,description,status,created_at")
+.select("id,title,category,release_year,quality,poster_url,description,video_url,status,created_at")
 .eq("status","published").order("created_at",{ascending:false});
 if(error){msg("Catalogue error: "+error.message);return}
 movies=data||[];
