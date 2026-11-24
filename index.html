@@ -534,6 +534,78 @@ const { error } = await client.functions.invoke("framevault-ingest", {
   }
 });
   
+// FrameVault Admin Queue Dashboard
+const queueDashboardHTML = `
+<section class="panel" id="queueDashboard">
+  <h3>Ingestion Dashboard</h3>
+  <button type="button" class="secondary" id="refreshJobs">
+    Refresh Jobs
+  </button>
+  <div id="jobStats" class="grid"></div>
+  <div id="jobList" class="status">Tap Refresh Jobs to load.</div>
+</section>`;
+
+const dashboardHost = document.getElementById("adminArea");
+
+if (dashboardHost && !document.getElementById("queueDashboard")) {
+  dashboardHost.insertAdjacentHTML("beforeend", queueDashboardHTML);
+}
+
+async function loadQueueDashboard() {
+  const stats = document.getElementById("jobStats");
+  const list = document.getElementById("jobList");
+
+  if (!admin || !client) {
+    list.textContent = "Admin login required.";
+    return;
+  }
+
+  list.textContent = "Loading jobs...";
+
+  const { data, error } = await client
+    .from("ingest_jobs")
+    .select("id,created_at,source_name,source_url,status,progress_percent,attempts,error_message")
+    .order("created_at", { ascending: false })
+    .limit(50);
+
+  if (error) {
+    list.textContent = "Dashboard error: " + error.message;
+    return;
+  }
+
+  const jobs = data || [];
+  const statuses = ["queued", "processing", "completed", "failed"];
+
+  stats.innerHTML = statuses.map(status => {
+    const count = jobs.filter(job => job.status === status).length;
+    return `<div class="panel">
+      <b>${status.toUpperCase()}</b>
+      <h2>${count}</h2>
+    </div>`;
+  }).join("");
+
+  if (!jobs.length) {
+    list.textContent = "No ingestion jobs yet.";
+    return;
+  }
+
+  list.innerHTML = jobs.map(job => `
+    <div class="item">
+      <b>${esc(job.source_name || "Unnamed video")}</b>
+      <div class="meta">Status: ${esc(job.status || "unknown")}</div>
+      <div class="meta">Progress: ${Number(job.progress_percent || 0)}%</div>
+      <div class="meta">Attempts: ${Number(job.attempts || 0)}</div>
+      ${job.error_message
+        ? `<div class="meta">Error: ${esc(job.error_message)}</div>`
+        : ""}
+      <div class="meta">${esc(job.created_at || "")}</div>
+    </div>
+  `).join("");
+}
+
+document.getElementById("refreshJobs")
+  ?.addEventListener("click", loadQueueDashboard);
+    
 start();
 </script>
 </body>
