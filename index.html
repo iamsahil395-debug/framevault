@@ -229,7 +229,7 @@ if (videoUrl && !httpsUrl(videoUrl)) {
   const { data, error } = await client.storage
     .from("framevault-media")
     .createSignedUrl(videoUrl, 3600);
-
+if (error) alert("Storage URL error: " + error.message);
   videoUrl = error ? "" : data.signedUrl;
 }
 
