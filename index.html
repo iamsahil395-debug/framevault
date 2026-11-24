@@ -208,9 +208,42 @@ ${httpsUrl(m.poster_url)?`<img src="${esc(httpsUrl(m.poster_url))}" alt="">`:"ðŸ
 </article>`).join(""):'<p class="muted">No published titles found.</p>';
 }
 
-window.details=id=>{
-let m=movies.find(x=>x.id===id);
-if(m)alert(m.title+"\n"+(m.description||"No description."));
+window.details = id => {
+  const m = movies.find(x => x.id === id);
+  if (!m) return;
+
+  document.getElementById("movieModal")?.remove();
+
+  const modal = document.createElement("div");
+  modal.id = "movieModal";
+  modal.style.cssText = `
+    position:fixed;inset:0;z-index:9999;
+    background:#000e;display:flex;align-items:center;
+    justify-content:center;padding:18px;
+  `;
+
+  const videoUrl = httpsUrl(m.video_url);
+
+  modal.innerHTML = `
+    <div style="background:#1b2432;color:white;
+      padding:20px;border-radius:16px;width:100%;
+      max-width:650px;max-height:90vh;overflow:auto">
+      <button id="closeMovie" style="float:right;padding:10px">
+        Close âœ•
+      </button>
+      <h2>${esc(m.title)}</h2>
+      ${videoUrl
+        ? `<video controls playsinline style="width:100%;border-radius:12px">
+             <source src="${esc(videoUrl)}">
+           </video>`
+        : `<p>No video available yet.</p>`}
+      <p>${esc(m.description || "No description.")}</p>
+      <p>${esc(m.category || "")}</p>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+  modal.querySelector("#closeMovie").onclick = () => modal.remove();
 };
 
 el("search").addEventListener("input",render);
