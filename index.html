@@ -225,7 +225,7 @@ window.details = async id => {
 
   let videoUrl = m.video_url || "";
 
-if (videoUrl && !httpsUrl(videoUrl)) {
+if (videoUrl) {
   const { data, error } = await client.storage
     .from("framevault-media")
     .createSignedUrl(videoUrl, 3600);
