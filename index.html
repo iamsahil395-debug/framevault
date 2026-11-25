@@ -469,8 +469,9 @@ const item = candidates[index];
         "https://commons.wikimedia.org/wiki/Special:FilePath/" +
         encodeURIComponent(image);
    el("poster").dispatchEvent(new Event("input"));
-    }
-
+    el("posterPreview").src = el("poster").value;
+el("posterPreview").style.display = "block";
+  }
     msg("Available movie details filled. Please verify them.");
   } catch (error) {
     msg("Details fetch nahi ho payi. Internet check karo.");
