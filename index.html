@@ -5,16 +5,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#10131c">
-<title>FrameVault</title>
+<title>FrameVault — Movies, Series & Animation</title>
 <style>
 :root{--bg:#080a0f;--panel:#121722;--panel2:#181f2b;--gold:#e9b45b;--gold2:#f5d18a;--muted:#a4adbd;--line:#ffffff18;--text:#f7f7f5}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:130px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:140px}
 body{margin:0;background:radial-gradient(ellipse at 50% -20%,#283246 0,#10151f 35%,var(--bg) 72%);color:var(--text);font-family:Inter,system-ui,-apple-system,Arial,sans-serif;min-height:100vh}
 header{height:64px;position:sticky;top:0;z-index:1002;display:flex;align-items:center;padding:0 max(5%,calc((100% - 1180px)/2));background:#090c12ed;border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}
 .logo{font-weight:950;font-size:23px;letter-spacing:1.8px}.logo span{color:var(--gold)}
 .mobile-nav{position:sticky;top:64px;z-index:1001;display:flex;justify-content:center;gap:10px;padding:10px 14px;background:#0c1018ed;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
 .mobile-nav a{color:#dce1e9;text-decoration:none;padding:9px 17px;border-radius:999px;background:transparent;border:1px solid transparent;font-size:13px;font-weight:700;letter-spacing:.2px;transition:.2s}
-.mobile-nav a:hover,.mobile-nav a:focus{color:#15120b;background:var(--gold);outline:none}
+.mobile-nav a:hover,.mobile-nav a:focus,.mobile-nav a.active{color:#15120b;background:var(--gold);outline:none}
 main{max-width:1180px;margin:auto;padding:26px 22px 50px}
 .hero{position:relative;isolation:isolate;overflow:hidden;min-height:330px;padding:clamp(30px,6vw,64px);border:1px solid #d9b77944;border-radius:24px;margin:6px 0 38px;background:linear-gradient(90deg,#080b11 0%,#101722eF 44%,#111a28b8 100%),radial-gradient(ellipse at 82% 38%,#9d704b 0,#3a4655 26%,#121a27 62%);box-shadow:0 24px 70px #0008}
 .hero:before{content:"";position:absolute;z-index:-1;width:330px;height:330px;right:7%;top:0;border-radius:50%;background:radial-gradient(circle,#d4a15b55 0,#b4773a22 40%,transparent 70%);filter:blur(8px)}
@@ -24,7 +24,7 @@ main{max-width:1180px;margin:auto;padding:26px 22px 50px}
 .hero .muted{max-width:520px;font-size:15px;color:#c1c8d3;line-height:1.7}
 button{border:0;border-radius:10px;padding:11px 17px;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#17130c;font-weight:850;cursor:pointer;transition:transform .18s,filter .18s}
 button:hover{transform:translateY(-1px);filter:brightness(1.06)}button.secondary{background:#ffffff12;color:#f7f7f5;border:1px solid #ffffff2c}button.danger{background:#71303a;color:white}button:disabled{opacity:.55;cursor:not-allowed}
-#catalog{scroll-margin-top:130px}#catalog>h2{font-size:25px;letter-spacing:-.5px;margin:0 0 16px}
+#catalog{scroll-margin-top:140px}#admin{scroll-margin-top:140px}#catalog>h2{font-size:25px;letter-spacing:-.5px;margin:0 0 16px}
 .toolbar{display:flex;gap:10px;margin:14px 0}.toolbar input{flex:1;min-width:0}
 input,select,textarea{width:100%;padding:12px 13px;margin:5px 0;background:#0c111a;color:white;border:1px solid #ffffff26;border-radius:10px;font:inherit}input:focus,select:focus,textarea:focus{outline:1px solid var(--gold);border-color:var(--gold)}textarea{min-height:80px}
 .chips{display:flex;gap:9px;overflow:auto;margin:15px 0 20px;scrollbar-width:none;padding-bottom:4px}.chips::-webkit-scrollbar{display:none}.chip{white-space:nowrap;background:#ffffff0d;color:#dce1e9;border:1px solid #ffffff20}.chip.active{background:var(--gold);color:#17130c;border-color:var(--gold)}
@@ -40,16 +40,24 @@ footer{text-align:center;color:#7f8999;padding:28px 16px;font-size:12px;border-t
 @media(max-width:1000px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:700px){main{padding:18px 13px 38px}.hero{min-height:300px;padding:30px 23px;border-radius:18px;margin-bottom:30px}.hero h1{letter-spacing:-1.3px}.hero:after{font-size:23px;right:12px;bottom:12px}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.body{padding:10px}.body h3{font-size:13px}.mobile-nav{justify-content:space-around;gap:2px;padding:8px 5px}.mobile-nav a{padding:9px 11px;font-size:12px}.panel{padding:17px}}
 @media(max-width:480px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.formgrid{grid-template-columns:1fr}.wide{grid-column:auto}.toolbar{flex-wrap:wrap}.toolbar button{width:100%}.mobile-nav a{padding:8px 9px;font-size:11px}#movieModal{padding:9px!important}#movieModal>div{max-height:94vh!important;padding:15px!important}}
+
+/* FrameVault responsive video and fullscreen controls */
+.fv-player-wrap{width:100%;margin:14px 0;}
+.fv-player-wrap video{display:block;width:100%;max-height:70vh;aspect-ratio:16/9;object-fit:contain;background:#000;border-radius:12px;}
+.fv-fullscreen-btn{margin-top:9px;padding:10px 15px;border:1px solid #c9a64b;border-radius:8px;background:#c9a64b;color:#111;font-weight:700;cursor:pointer;}
+.fv-player-wrap video:fullscreen{width:100vw;height:100vh;max-height:none;aspect-ratio:auto;object-fit:contain;border-radius:0;background:#000;}
+.fv-player-wrap video:-webkit-full-screen{width:100vw;height:100vh;max-height:none;object-fit:contain;background:#000;}
+@media (orientation:landscape){.fv-player-wrap video:fullscreen{width:100vw;height:100vh;}}
 </style>
 </head>
-<body>
+<body id="top">
 <header><div class="logo">FRAME<span>VAULT</span></div></header>
 
 <nav class="mobile-nav">
-  <a href="#catalog">Home</a>
-  <a href="#catalog">Movies</a>
-  <a href="#catalog">Anime</a>
-  <a href="#admin">Admin</a>
+  <a href="#top" data-nav="home">Home</a>
+  <a href="#catalog" data-nav="movies">Movies</a>
+  <a href="#catalog" data-nav="anime">Anime</a>
+  <a href="#admin" data-nav="admin">Admin</a>
 </nav>
   
 <main>
@@ -61,7 +69,8 @@ footer{text-align:center;color:#7f8999;padding:28px 16px;font-size:12px;border-t
 </section>
 
 <section id="catalog">
-<h2>Explore the collection</h2>
+<h2 id="catalogHeading">Explore the collection</h2>
+<p class="muted" id="catalogSubheading">Browse all published titles, or choose Movies and Anime from the navigation.</p>
 <div class="toolbar">
 <input id="search" placeholder="Search titles">
 <button class="secondary" onclick="loadMovies()">Refresh</button>
@@ -137,7 +146,7 @@ footer{text-align:center;color:#7f8999;padding:28px 16px;font-size:12px;border-t
 <p class="muted">Import multiple authorised titles using a CSV file. Each row represents one title.</p>
 <div class="formgrid">
 <input id="csvFile" class="wide" type="file" accept=".csv,text/csv">
-<p class="muted wide">Required CSV header: title. Other supported columns: category, release_year, language, quality, poster_url, description, video_url, status.</p>
+<p class="muted wide">Required: title. Optional: category, release_year, rating, duration_minutes, release_date, language, quality, poster_url, backdrop_url, description, video_url, status.</p>
 <button type="button" id="importBtn" class="wide">Import CSV</button>
 <div id="importStatus" class="status wide">No file selected.</div>
 </div>
@@ -294,24 +303,37 @@ movies=data||[];
 render();
 }
 
-function render(){
-let q=el("search").value.toLowerCase().trim();
-let list=movies.filter(m=>
-(categoryFilter==="All"||m.category===categoryFilter)&&
-m.title.toLowerCase().includes(q)
-);
-el("grid").innerHTML=list.length?list.map(m=>`
-<article class="card">
-<div class="poster">
-${httpsUrl(m.poster_url)?`<img src="${esc(httpsUrl(m.poster_url))}" alt="">`:"🎬"}
-</div>
-<div class="body">
-<h3>${esc(m.title)}</h3>
-<div class="meta">${esc(m.category)} · ${esc(m.release_year||"Year N/A")} · ${esc(m.quality||"")}</div>
-<button type="button" onclick="window.details('${m.id}')">Details</button>
-</div>
-</article>`).join(""):'<p class="muted">No published titles found.</p>';
+function categoryMatches(movie, filter){
+  if(filter==="All") return true;
+  if(filter==="Movies") return ["Movies","Hollywood","Bollywood"].includes(movie.category);
+  if(filter==="Anime") return ["Anime","Animation","Cartoons"].includes(movie.category);
+  return movie.category===filter;
 }
+function movieCard(m){
+  return `<article class="card">
+    <div class="poster">${httpsUrl(m.poster_url)?`<img loading="lazy" src="${esc(httpsUrl(m.poster_url))}" alt="${esc(m.title)} poster">`:"🎬"}</div>
+    <div class="body"><h3>${esc(m.title)}</h3>
+      <div class="meta">${esc(m.category)} · ${esc(m.release_year||"Year N/A")} · ${esc(m.quality||"")}</div>
+      <button type="button" data-details="${esc(m.id)}">Details</button>
+    </div></article>`;
+}
+function paintGrid(target, list, emptyText){
+  const node=el(target);
+  if(!node)return;
+  node.innerHTML=list.length?list.map(movieCard).join(""):`<p class="muted">${emptyText}</p>`;
+}
+function render(){
+  const q=el("search").value.toLowerCase().trim();
+  const list=movies.filter(m=>categoryMatches(m,categoryFilter)&&String(m.title||"").toLowerCase().includes(q));
+  paintGrid("grid",list,"No published titles found.");
+  const heading=categoryFilter==="All"?"Explore the collection":categoryFilter==="Movies"?"Movies":categoryFilter==="Anime"?"Anime & Animation":categoryFilter;
+  el("catalogHeading").textContent=heading;
+  el("catalogSubheading").textContent=`${list.length} published title${list.length===1?"":"s"} available`;
+  document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",x.dataset.cat===categoryFilter));
+  const navActive=categoryFilter==="All"?"home":["Movies","Hollywood","Bollywood"].includes(categoryFilter)?"movies":["Anime","Animation","Cartoons"].includes(categoryFilter)?"anime":"";
+  document.querySelectorAll(".mobile-nav a[data-nav]").forEach(a=>a.classList.toggle("active",a.dataset.nav===navActive));
+}
+
 
 window.details = async id => {
   const m = movies.find(x => x.id === id);
@@ -328,14 +350,13 @@ window.details = async id => {
   `;
 
   let videoUrl = m.video_url || "";
-
-if (videoUrl) {
-  const { data, error } = await client.storage
-    .from("framevault-media")
-    .createSignedUrl(videoUrl, 3600);
-if (error) alert("Storage URL error: " + error.message);
-  videoUrl = error ? "" : data.signedUrl;
-}
+  if(videoUrl && !/^https:\/\//i.test(videoUrl)){
+    const { data, error } = await client.storage.from("framevault-media").createSignedUrl(videoUrl,3600);
+    if(error){msg("Video could not be opened: "+error.message);videoUrl="";}
+    else videoUrl=data.signedUrl;
+  } else if(videoUrl && !httpsUrl(videoUrl)) {
+    videoUrl="";
+  }
 
   modal.innerHTML = `
     <div style="background:#1b2432;color:white;
@@ -352,9 +373,12 @@ ${m.duration_minutes ? `<span>Duration: ${esc(m.duration_minutes)} min</span>` :
 ${m.release_date ? `<span>Release: ${esc(m.release_date)}</span>` : ''}
 </div>
       ${videoUrl
-        ? `<video controls playsinline style="width:100%;border-radius:12px">
-             <source src="${esc(videoUrl)}">
-           </video>`
+        ? `<div class="fv-player-wrap">
+             <video id="fvMoviePlayer" controls playsinline webkit-playsinline preload="metadata">
+               <source src="${esc(videoUrl)}">
+             </video>
+             <button type="button" id="fvFullscreenBtn" class="fv-fullscreen-btn">⛶ Full screen</button>
+           </div>`
         : `<p>No video available yet.</p>`}
       <p>${esc(m.description || "No description.")}</p>
 <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#aaa">
@@ -368,33 +392,72 @@ ${m.release_date ? `<span>Release: ${esc(m.release_date)}</span>` : ''}
   `;
 
   document.body.appendChild(modal);
-  const player = modal.querySelector("video");
+  const player = modal.querySelector("#fvMoviePlayer");
+  const fullscreenButton = modal.querySelector("#fvFullscreenBtn");
 
-if (player) {
-  player.addEventListener("fullscreenchange", async () => {
-    if (document.fullscreenElement) {
-      try {
-        await screen.orientation.lock("landscape");
-      } catch (error) {
-        console.log("Landscape lock not supported");
+  // Fullscreen must be requested directly from the user's tap. On Android
+  // Chrome, orientation locking is available only in supported fullscreen contexts.
+  const enterLandscapeFullscreen = async () => {
+    if (!player) return;
+    try {
+      if (player.requestFullscreen) {
+        await player.requestFullscreen();
+      } else if (player.webkitEnterFullscreen) {
+        player.webkitEnterFullscreen();
+      } else {
+        throw new Error("Fullscreen is not supported by this browser.");
       }
-    } else {
-      screen.orientation.unlock();
+      try {
+        if (screen.orientation && screen.orientation.lock) {
+          await screen.orientation.lock("landscape");
+        }
+      } catch (orientationError) {
+        console.info("This browser/device does not allow automatic landscape lock.");
+      }
+    } catch (fullscreenError) {
+      console.info("Fullscreen request was not available:", fullscreenError);
     }
-  });
-}
+  };
+
+  if (player && fullscreenButton) {
+    fullscreenButton.addEventListener("click", enterLandscapeFullscreen);
+    // Also handle fullscreen entered through the browser's native video controls.
+    document.addEventListener("fullscreenchange", () => {
+      if (!document.fullscreenElement && screen.orientation?.unlock) {
+        try { screen.orientation.unlock(); } catch (_) {}
+      }
+    });
+    player.addEventListener("webkitendfullscreen", () => {
+      if (screen.orientation?.unlock) {
+        try { screen.orientation.unlock(); } catch (_) {}
+      }
+    });
+  }
   modal.querySelector("#closeMovie").onclick = () => modal.remove();
+  modal.addEventListener("click",event=>{if(event.target===modal)modal.remove();});
+  document.addEventListener("keydown",function closeOnEscape(event){if(event.key==="Escape"){modal.remove();document.removeEventListener("keydown",closeOnEscape);}});
 };
 
 el("search").addEventListener("input",render);
 
 el("filters").addEventListener("click",e=>{
-let b=e.target.closest("[data-cat]");
-if(!b)return;
-categoryFilter=b.dataset.cat;
-document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",x===b));
-render();
+  let b=e.target.closest("[data-cat]");
+  if(!b)return;
+  categoryFilter=b.dataset.cat;
+  render();
 });
+document.addEventListener("click",e=>{
+  const detail=e.target.closest("[data-details]");
+  if(detail) window.details(detail.dataset.details);
+});
+document.querySelectorAll(".mobile-nav a[data-nav]").forEach(link=>link.addEventListener("click",()=>{
+  const nav=link.dataset.nav;
+  if(nav==="home") categoryFilter="All";
+  if(nav==="movies") categoryFilter="Movies";
+  if(nav==="anime") categoryFilter="Anime";
+  if(nav==="admin") return;
+  render();
+}));
 
 async function verifyAdmin(){
 let {data:{user}}=await client.auth.getUser();
@@ -582,6 +645,8 @@ let r = editId
 
 if(r.error){msg("Save failed: "+r.error.message);return}
 el("movieForm").reset();
+el("poster").dispatchEvent(new Event("input"));
+el("backdrop").dispatchEvent(new Event("input"));
 editId=null;
 el("formTitle").textContent="Add a title";
 el("saveBtn").textContent="Save title";
@@ -636,7 +701,7 @@ if(rows.length<2)throw new Error("CSV must contain a header and at least one dat
 let headers=rows[0].map(h=>h.trim().toLowerCase());
 if(!headers.includes("title"))throw new Error("Required CSV column 'title' is missing.");
 
-let supported=["title","category","release_year","language","quality","poster_url","description","video_url","status"];
+let supported=["title","category","release_year","rating","duration_minutes","release_date","language","quality","poster_url","backdrop_url","description","video_url","status"];
 let unknown=headers.filter(h=>!supported.includes(h));
 if(unknown.length)throw new Error("Unsupported CSV column(s): "+unknown.join(", "));
 
@@ -665,27 +730,24 @@ issues.push("Row "+(i+1)+": invalid release year.");continue;
 }
 }
 
-let poster=null,video=null;
-if(values.poster_url){
-poster=httpsUrl(values.poster_url);
-if(!poster){issues.push("Row "+(i+1)+": poster URL must use HTTPS.");continue}
+let poster=null,backdrop=null,video=null;
+for(const key of ["poster_url","backdrop_url","video_url"]){
+  if(values[key] && !httpsUrl(values[key])){issues.push("Row "+(i+1)+": "+key+" must use HTTPS.");poster=null;backdrop=null;video=null;break;}
 }
-if(values.video_url){
-video=httpsUrl(values.video_url);
-if(!video){issues.push("Row "+(i+1)+": video URL must use HTTPS.");continue}
-}
-
+if(issues.length && issues[issues.length-1].startsWith("Row "+(i+1)+":")) continue;
+poster=values.poster_url?httpsUrl(values.poster_url):null;
+backdrop=values.backdrop_url?httpsUrl(values.backdrop_url):null;
+video=values.video_url?httpsUrl(values.video_url):null;
+let rating=values.rating?Number(values.rating):null;
+let duration=values.duration_minutes?Number(values.duration_minutes):null;
+if(rating!==null&&(!Number.isFinite(rating)||rating<0||rating>10)){issues.push("Row "+(i+1)+": rating must be 0–10.");continue;}
+if(duration!==null&&(!Number.isInteger(duration)||duration<1)){issues.push("Row "+(i+1)+": duration_minutes must be a positive whole number.");continue;}
+let releaseDate=values.release_date||null;
+if(releaseDate&&!/^\d{4}-\d{2}-\d{2}$/.test(releaseDate)){issues.push("Row "+(i+1)+": release_date must use YYYY-MM-DD.");continue;}
 records.push({
-title,
-category,
-release_year:year,
-language:values.language||null,
-quality,
-poster_url:poster,
-description:values.description||null,
-video_url:video,
-status,
-updated_at:new Date().toISOString()
+title,category,release_year:year,rating,duration_minutes:duration,release_date:releaseDate,
+backdrop_url:backdrop,language:values.language||null,quality,poster_url:poster,
+description:values.description||null,video_url:video,status,updated_at:new Date().toISOString()
 });
 }
 
@@ -719,7 +781,7 @@ button.textContent="Import CSV";
 const bulkQueueHTML = `
 <section class="panel" id="bulkQueue">
   <h3>Bulk URL Queue</h3>
-  <p class="muted">Add one authorised video URL per line.</p>
+  <p class="muted">Add one authorised direct video URL per line. This creates queue records only; a separate transfer worker is required to download or move files.</p>
   <textarea id="bulkUrls" placeholder="https://your-authorised-video-url.com/video1.mp4
 https://your-authorised-video-url.com/video2.mp4"></textarea>
   <button type="button" id="queueBtn">Add URLs to Queue</button>
@@ -797,7 +859,7 @@ const { error } = await client.functions.invoke("framevault-ingest", {
 // FrameVault Admin Queue Dashboard
 const queueDashboardHTML = `
 <section class="panel" id="queueDashboard">
-  <h3>Ingestion Dashboard</h3>
+  <h3>Ingestion Queue Dashboard</h3><p class="muted">Displays job records. It does not perform video transfers.</p>
   <button type="button" class="secondary" id="refreshJobs">
     Refresh Jobs
   </button>
