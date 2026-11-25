@@ -140,11 +140,58 @@ footer{text-align:center;color:var(--muted);padding:25px;font-size:12px}
   }
 }
   
+/* FrameVault Mobile Navigation */
+.mobile-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px;
+  background: #10131c;
+  border-bottom: 1px solid #ffffff22;
+}
+
+.mobile-nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  background: #ffffff12;
+  font-weight: 600;
+}
+
+.mobile-nav a:active {
+  background: #ffbd59;
+  color: #171b25;
+}
+
+@media (max-width: 600px) {
+  .mobile-nav {
+    justify-content: space-around;
+    gap: 5px;
+    padding: 9px 5px;
+  }
+
+  .mobile-nav a {
+    padding: 9px 11px;
+    font-size: 13px;
+  }
+    }
+  
 </style>
 </head>
 <body>
 <header><div class="logo">FRAME<span>VAULT</span></div></header>
 
+<nav class="mobile-nav">
+  <a href="#catalog">Home</a>
+  <a href="#catalog">Movies</a>
+  <a href="#catalog">Anime</a>
+  <a href="#admin">Admin</a>
+</nav>
+  
 <main>
 <section class="hero">
 <small>MOVIES • SERIES • ANIMATION</small>
