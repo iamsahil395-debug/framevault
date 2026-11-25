@@ -594,7 +594,6 @@ video_url:videoValue,
 status:el("status").value,
 updated_at:new Date().toISOString()
 };
-let r=editId
 let r = editId
   ? await client.from("movies").update(item).eq("id", editId)
   : await client.from("movies").insert(item);
