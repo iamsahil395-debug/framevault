@@ -399,9 +399,24 @@ el("fetchDetails").addEventListener("click", async () => {
       return;
     }
 
-    const item = result.search.find(x =>
-      /film|movie|television series/i.test(x.description || "")
-    ) || result.search[0];
+    const candidates = result.search.slice(0, 8);
+
+const options = candidates.map((x, i) =>
+  `${i + 1}. ${x.label} — ${x.description || "No description"}`
+).join("\n");
+
+const choice = prompt("Select the correct movie:\n\n" + options + "\n\nEnter number:");
+
+if (choice === null) return;
+
+const index = Number(choice) - 1;
+
+if (!Number.isInteger(index) || index < 0 || index >= candidates.length) {
+  msg("Invalid selection.");
+  return;
+}
+
+const item = candidates[index];
 
     const detailResponse = await fetch(
       "https://www.wikidata.org/wiki/Special:EntityData/" +
