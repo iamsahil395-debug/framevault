@@ -468,6 +468,7 @@ const item = candidates[index];
       el("poster").value =
         "https://commons.wikimedia.org/wiki/Special:FilePath/" +
         encodeURIComponent(image);
+   el("poster").dispatchEvent(new Event("input"));
     }
 
     msg("Available movie details filled. Please verify them.");
