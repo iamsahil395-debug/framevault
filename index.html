@@ -200,6 +200,52 @@ footer{text-align:center;color:var(--muted);padding:25px;font-size:12px}
     padding:16px !important;
     max-height:94vh !important;
   }
+  .card {
+  overflow:hidden;
+  border-radius:16px;
+  background:linear-gradient(145deg,#1b2432,#111827);
+  border:1px solid #ffffff18;
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+
+.card:active {
+  transform:scale(.98);
+}
+
+.poster {
+  height:auto !important;
+  aspect-ratio:2/3;
+  overflow:hidden;
+}
+
+.poster img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .3s ease;
+}
+
+.card:hover .poster img {
+  transform:scale(1.04);
+}
+
+.body {
+  padding:12px;
+}
+
+.body h3 {
+  font-size:15px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.chips {
+  scrollbar-width:none;
+}
+
+.chips::-webkit-scrollbar {
+  display:none;
+  }
   } 
 </style>
 </head>
