@@ -179,7 +179,28 @@ footer{text-align:center;color:var(--muted);padding:25px;font-size:12px}
     font-size: 13px;
   }
     }
-  
+ #movieModal video {
+  width:100%;
+  max-height:65vh;
+  object-fit:contain;
+  background:#000;
+  border-radius:14px;
+}
+
+#movieModal h2 {
+  font-size:26px;
+  margin:8px 0 18px;
+}
+
+@media(max-width:600px) {
+  #movieModal {
+    padding:10px !important;
+  }
+  #movieModal > div {
+    padding:16px !important;
+    max-height:94vh !important;
+  }
+  } 
 </style>
 </head>
 <body>
