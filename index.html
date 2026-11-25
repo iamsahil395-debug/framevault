@@ -321,6 +321,12 @@ footer{text-align:center;color:var(--muted);padding:25px;font-size:12px}
 <option>1080p</option><option>720p</option><option>480p</option><option>4K</option>
 </select>
 <input id="poster" class="wide" type="url" placeholder="Poster image URL (optional)">
+<div class="wide">
+  <p>Poster Preview</p>
+  <img id="posterPreview" style="width:140px;border-radius:10px;display:none">
+  <p>Backdrop Preview</p>
+  <img id="backdropPreview" style="width:100%;border-radius:10px;display:none">
+</div>
 <textarea id="description" class="wide" placeholder="Description"></textarea>
 <input id="video" class="wide" type="text" placeholder="Video URL or Storage path">
 <input id="videoFile" class="wide" type="file" accept="video/*">
@@ -375,7 +381,25 @@ let u=new URL(s);
 return u.protocol==="https:"?u.href:"";
 }catch{return ""}
 };
-el("fetchDetails").addEventListener("click", async () => {
+const setImagePreview = (inputId, previewId) => {
+  const input = el(inputId);
+  const preview = el(previewId);
+
+  const update = () => {
+    const url = httpsUrl(input.value.trim());
+    preview.src = url;
+    preview.style.display = url ? "block" : "none";
+  };
+
+  input.addEventListener("input", update);
+  preview.addEventListener("error", () => {
+    preview.style.display = "none";
+  });
+};
+
+setImagePreview("poster", "posterPreview");
+setImagePreview("backdrop", "backdropPreview");
+  el("fetchDetails").addEventListener("click", async () => {
   const title = el("title").value.trim();
 
   if (!title) {
