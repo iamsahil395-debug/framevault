@@ -242,7 +242,13 @@ footer{text-align:center;color:var(--muted);padding:25px;font-size:12px}
 <option>Web Series</option><option>Anime</option><option>Animation</option><option>Cartoons</option>
 </select>
 <input id="year" type="number" placeholder="Release year">
-<input id="language" placeholder="Language">
+
+<input id="rating" type="number" min="0" max="10" step="0.1" placeholder="IMDb Rating (0–10)">
+<input id="duration" type="number" min="1" placeholder="Duration (minutes)">
+<input id="releaseDate" type="date" placeholder="Release Date">
+<input id="backdrop" class="wide" type="url" placeholder="Backdrop image URL (optional)">
+  
+  <input id="language" placeholder="Language">
 <select id="quality">
 <option>1080p</option><option>720p</option><option>480p</option><option>4K</option>
 </select>
