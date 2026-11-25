@@ -375,7 +375,67 @@ let u=new URL(s);
 return u.protocol==="https:"?u.href:"";
 }catch{return ""}
 };
+el("fetchDetails").addEventListener("click", async () => {
+  const title = el("title").value.trim();
 
+  if (!title) {
+    msg("Pehle movie ka title enter karo.");
+    return;
+  }
+
+  try {
+    msg("Searching movie details...");
+
+    const searchUrl =
+      "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=" +
+      encodeURIComponent(title) +
+      "&language=en&format=json&origin=*";
+
+    const response = await fetch(searchUrl);
+    const result = await response.json();
+
+    if (!result.search || !result.search.length) {
+      msg("Movie details nahi mile.");
+      return;
+    }
+
+    const item = result.search.find(x =>
+      /film|movie|television series/i.test(x.description || "")
+    ) || result.search[0];
+
+    const detailResponse = await fetch(
+      "https://www.wikidata.org/wiki/Special:EntityData/" +
+      item.id + ".json"
+    );
+
+    const details = await detailResponse.json();
+    const movie = details.entities[item.id];
+
+    const claims = movie.claims || {};
+
+    const date = claims.P577?.[0]?.mainsnak?.datavalue?.value?.time;
+
+    if (date && !el("year").value) {
+      el("year").value = date.substring(1, 5);
+    }
+
+    if (!el("description").value && movie.descriptions?.en) {
+      el("description").value = movie.descriptions.en.value;
+    }
+
+    const image = claims.P18?.[0]?.mainsnak?.datavalue?.value;
+
+    if (image && !el("poster").value) {
+      el("poster").value =
+        "https://commons.wikimedia.org/wiki/Special:FilePath/" +
+        encodeURIComponent(image);
+    }
+
+    msg("Available movie details filled. Please verify them.");
+  } catch (error) {
+    msg("Details fetch nahi ho payi. Internet check karo.");
+  }
+});
 async function start(){
 if(!window.supabase){msg("Supabase library did not load. Check internet.");return}
 if(!SUPABASE_URL.startsWith("https://")||!SUPABASE_PUBLISHABLE_KEY.startsWith("sb_publishable_")){
