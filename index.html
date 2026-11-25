@@ -384,8 +384,7 @@ if (error) alert("Storage URL error: " + error.message);
         Close ✕
       </button>
       <h2>${esc(m.title)}</h2>
-${m.backdrop_url ? `<img src="${esc(httpsUrl(m.backdrop_url))}" alt="" style="width:100%;max-height:220px;object-fit:cover;border-radius:12px;margin:10px 0">` : ''}
-
+${m.backdrop_url ? `<div style="height:220px;width:100%;border-radius:14px;margin:12px 0;position:relative;overflow:hidden;background:linear-gradient(to top,#101827aa,transparent),url('${esc(httpsUrl(m.backdrop_url))}') center/cover no-repeat"></div>` : ''}
 <div style="display:flex;flex-wrap:wrap;gap:12px;margin:12px 0;color:#ddd;font-size:14px">
 ${m.rating != null ? `<span>★ ${esc(m.rating)}/10</span>` : ''}
 ${m.duration_minutes ? `<span>Duration: ${esc(m.duration_minutes)} min</span>` : ''}
